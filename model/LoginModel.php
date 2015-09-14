@@ -3,11 +3,15 @@
 namespace model;
 
     class loginmodell{
-    
+        
         private $username = martin;
         private $password = "1234";
         private $errorsMessage = "You forgot to enter username and password";
         private $errorsMessage2 = "You have enter wrong username and password";
+        
+        function __construct($username, $password, $errorsMessage, $errorsMessage2){
+            $this->username = $username;
+        }
       
     //kolla om anändarnamn och lösen
     function CheckIfLogin($indata){
@@ -40,6 +44,8 @@ namespace model;
     }
 
     function setpassword(){
-        $this->password = password;
+        $this->password = $password;
     }
-    }
+    
+    
+}

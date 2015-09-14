@@ -9,7 +9,7 @@ class LoginView {
 	private static $cookiePassword = 'LoginView::CookiePassword';
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
-
+	private static $loginmodel;
 	
 
 	/**
@@ -19,6 +19,23 @@ class LoginView {
 	 *
 	 * @return  void BUT writes to standard output and cookies!
 	 */
+	 
+	function __construct($loginmodel){
+		$this->loginmodel = $loginmodel;	
+	}
+	
+	function getLogin(){
+		return isset (self::$login);
+	}
+	
+	function getName(){
+		return isset (self::$username);
+	}
+	
+	function getPassword(){
+		return isset (self::$password);
+	}
+	
 	public function response() {
 		$message = '';
 		
@@ -72,5 +89,8 @@ class LoginView {
 	private function getRequestUserName() {
 		//RETURN REQUEST VARIABLE: USERNAME
 	}
+	private function getRequestUserPassword(){}
+	
+	private function getRequestUserLogin(){}
 	
 }

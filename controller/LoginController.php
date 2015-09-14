@@ -4,44 +4,34 @@ namespace controller;
 
     class logincontroller
     {
+       
+        //Kommer ifrån modellen
+        private $username;
+        private $password;
+        private $session;
     
-        
-        function TryToLogin($username, $password){
-            if($this->authenticate($username, $password)){
-                session_start();
-                $user = new UserModel($username);
-                $_SESSION['user'] = $user;
-                
-                return true;
-            }
-                else
-                
-                return false;
-            }
-            
-        static function authenticate($user, $password){
-            $authenic = false;
-            
-            if($user == 'martin' && $password == '1234') $authenic = true;
-            return $authenic;
-        } 
-        
-        function logout(){
-            session_start();
-            session_destroy();
+        //Kommer ifrån vyn
+        private $loginView;
+        private $layoutView;
+        private $dateView;
+    
+        function __construct($username, $password, $session, $loginView, $layoutView, $dateView){
+            $this->username = $username;
+            $this->password = $password;
+            $this->session = $session;
+            $this->loginView = $loginView;
+            $this->layoutView = $layoutView;
+            $this->dateView = $dateView;
         }
         
-    }
-    
-    
-    
-    
-     //private $loginview;
-       // private $login;
+        function doesTheUserWantToLogin(){  //Funktion som kollar om användare vill logga in
         
-    //    function __construct($loginview, $login){
-      //      $this->LoginView = loginview;
-    //        $this->Login = login;
-            
-       
-       
+        //Villkor som hämtar ifrån view
+        if($this->loginView->getlogin()){
+            $this->username = $this->loginView->getRequestUserName();   //Hämtar användarnamn från view
+            $this->password = $this->loginView->getRequestUserPassword(); //Hämtar lösenord från view
+        }
+        }
+        
+        
+}
