@@ -2,8 +2,6 @@
 
 //INCLUDE THE FILES NEEDED...
 require_once('view/LoginView.php');
-require_once('view/DateTimeView.php');
-require_once('view/LayoutView.php');
 
 require_once('model/LoginModel.php');
 require_once('controller/LoginController.php');
@@ -18,15 +16,14 @@ $loginmodel = new model\LoginModel();
 
 
 //CREATE OBJECTS OF THE VIEWS
-$view = new LoginView($loginmodel);
-$dtv = new DateTimeView();
-$lv = new LayoutView();
+$view = new LayoutView();
+
 
 //Controller
 $controller = new controller\LoginController($loginmodel, $view);
 //$session->IsThereAnySession($controller);
 
-//$controller->TryLogin();
 
-$lv->render(false, $view, $dtv); //controller
+$controller->run();
+//$controller->TryLogin();
 
