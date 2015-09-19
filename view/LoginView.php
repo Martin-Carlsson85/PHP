@@ -9,7 +9,7 @@ class LoginView {
 	private static $cookiePassword = 'LoginView::CookiePassword';
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
-	private static $loginmodel;
+
 	
 
 	/**
@@ -21,7 +21,8 @@ class LoginView {
 	 */
 	 
 	function __construct($loginmodel){
-		$this->loginmodel = $loginmodel;	
+		$this->loginmodel = $loginmodel;
+		//$this->loginModel = new \model\LoginModel($_POST[self::$name], $_POST[self::$password]);
 	}
 	
 	function getLogin(){
@@ -37,11 +38,25 @@ class LoginView {
 	}
 	
 	public function response() {
-		$message = '';
+		return "HEJSAN";
 		
-		$response = $this->generateLoginFormHTML($message);
+		
+		// if($this->checkLoginPost()){
+		// 	$message = $this->Login->getErrorMessage();
+		// }else {
+		// 	$message = '';
+		// }
+		
+		// if($this->Login->getSaveUsername()){
+		// 	$savedUsername = $_POST[self::$name];
+		// }else {
+		// 	$savedUsername = '';
+		// }
+		// $message = $this->loginModel->CheckIfUserWantToLogin();;
+		
+		// $response = $this->generateLoginFormHTML($message);
 		//$response .= $this->generateLogoutButtonHTML($message);
-		return $response;
+		// return $response;
 	}
 
 	/**

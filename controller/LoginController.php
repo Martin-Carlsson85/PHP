@@ -4,24 +4,11 @@ namespace controller;
 
     class logincontroller
     {
-       
-        //Kommer ifrån modellen
-        private $username;
-        private $password;
-        private $session;
+        private $view, $model;
     
-        //Kommer ifrån vyn
-        private $loginView;
-        private $layoutView;
-        private $dateView;
-    
-        function __construct($username, $password, $session, $loginView, $layoutView, $dateView){
-            $this->username = $username;
-            $this->password = $password;
-            $this->session = $session;
-            $this->loginView = $loginView;
-            $this->layoutView = $layoutView;
-            $this->dateView = $dateView;
+        function __construct($view, $model){
+            $this->view = $view;
+            $this->model = $model;
         }
         
         function doesTheUserWantToLogin(){  //Funktion som kollar om användare vill logga in
