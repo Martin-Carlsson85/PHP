@@ -1,10 +1,7 @@
 <?php
 
 namespace controller;
-
-    require_once('view/DateTimeView.php');
-    require_once('view/LayoutView.php');
-
+ 
     class logincontroller
     {
         private $view, $model;
