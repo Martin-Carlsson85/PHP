@@ -1,5 +1,4 @@
 <?php
-
 //INCLUDE THE FILES NEEDED...
 require_once('model/LoginModel.php');
 require_once('controller/LoginController.php');
