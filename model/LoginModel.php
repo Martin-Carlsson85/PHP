@@ -17,7 +17,6 @@ class LoginModel{
     
     /**
      * Implementation of login, if successful, return true, else return false.
-     * TODO: Somehow return an error message with false.
      * 
      * @return boolean
      */

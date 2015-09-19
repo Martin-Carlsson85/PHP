@@ -13,8 +13,9 @@ class logincontroller
         $this->cookieView = new \view\CookieView();
         $this->loginView = new \view\LoginView($this->model);
     }
-    
+
     function run(){
+        //Check if the user is logged in
         $isLoggedIn = $this->isLoggedIn();
         //Is the user trying to log in with the form?
         if(!$isLoggedIn && $this->doesTheUserWantToLogin()) {

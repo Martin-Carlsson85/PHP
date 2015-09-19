@@ -23,9 +23,7 @@ $view = new view\LayoutView();
 
 //Controller
 $controller = new controller\LoginController($loginmodel, $view);
-//$session->IsThereAnySession($controller);
 
 //Start the application
 $controller->run();
-//$controller->TryLogin();
 
