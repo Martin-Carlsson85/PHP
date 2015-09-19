@@ -3,8 +3,8 @@
 namespace view;
 
 class CookieView{
-	public static $username = 'CookieView::Username';
-	public static $password = 'CookieView::Password';
+	public static $username = 'LoginView::CookieUsername';
+	public static $password = 'LoginView::CookiePassword';
     
     /**
      * This function will try to get login information from session.

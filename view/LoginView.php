@@ -3,6 +3,11 @@
 namespace view;
 
 class LoginView {
+	const WELCOME_MESSAGE = "Welcome";
+	const GOODBYE_MESSAGE = "Bye bye!";
+	const LOGIN_COOKIE = "Welcome back with cookie";
+	const MANIPULATED_COOKIE ="Wrong information in cookies";
+	
 	private static $login = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';
 	private static $name = 'LoginView::UserName';
@@ -12,6 +17,7 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
+	public $messageToShow = "";
 
 
 	/**
@@ -46,11 +52,15 @@ class LoginView {
 	function getPassword(){
 		return isset($_POST[self::$password]) ? $_POST[self::$password] : "";
 	}
+	
+	function setMessage($message){
+		$this->messageToShow = $message;
+	}
 
 	public function response($isLoggedIn) {
 		return $isLoggedIn ?
-			$this->generateLogoutButtonHTML("message?") :
-			$this->generateLoginFormHTML("temp?");
+			$this->generateLogoutButtonHTML($this->messageToShow) :
+			$this->generateLoginFormHTML($this->messageToShow);
 
 
 		// if($this->checkLoginPost()){
@@ -98,7 +108,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' . $message . '</p>
 
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="'. $this->getName() .'" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />

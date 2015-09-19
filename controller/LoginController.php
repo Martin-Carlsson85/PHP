@@ -24,6 +24,9 @@ class logincontroller
                 $this->sessionView->saveLoginSession($this->loginView->getName(), $this->loginView->getPassword());
                 if($this->loginView->keepLoggedIn())
                     $this->cookieView->saveLoginCookie($this->loginView->getName(), $this->loginView->getPassword());
+                $this->loginView->setMessage(\view\LoginView::WELCOME_MESSAGE);
+            }else {
+                $this->loginView->setMessage($this->model->message);
             }
         }
         
@@ -31,6 +34,7 @@ class logincontroller
             $this->sessionView->killSession();
             $this->cookieView->killCookies();
             $isLoggedIn = false;
+            $this->loginView->setMessage(\view\LoginView::GOODBYE_MESSAGE);
         }
         
         $dtv = new \view\DateTimeView();
@@ -45,20 +49,41 @@ class logincontroller
     function isLoggedIn(){
         //Checking login with session
         $sessionCred = $this->sessionView->tryGetLoginCredentials();
+        $cookieCred = $this->cookieView->tryGetLoginCredentials();
+        
         if($sessionCred != false) {
-            return $this->model->TryLogin(
+            if($this->model->TryLogin(
                 $sessionCred[\view\SessionView::$username], 
-                $sessionCred[\view\SessionView::$password]);
+                $sessionCred[\view\SessionView::$password])){
+                
+                //Should fail if changed cookies
+                if($cookieCred != false)
+                    if($this->tryLoginWithCookies($cookieCred))
+                         $this->loginView->setMessage("");
+                    else
+                        return false;
+                
+                return true;
+            }
         }
         
-        //Checking login with cookies
-        $cookieCred = $this->cookieView->tryGetLoginCredentials();
-        if($cookieCred != false) {
-            return $this->model->TryLogin(
-                $cookieCred[\view\CookieView::$username], 
-                $cookieCred[\view\CookieView::$password]);
-        }
+        if($cookieCred != false)
+            return $this->tryLoginWithCookies($cookieCred);
+        
         return false;
+    }
+    
+    function tryLoginWithCookies($cookieCred){
+        //Checking login with cookies
+        if($this->model->TryLogin(
+            $cookieCred[\view\CookieView::$username], 
+            $cookieCred[\view\CookieView::$password])){
+                $this->loginView->setMessage(\view\LoginView::LOGIN_COOKIE);
+            return true;
+        }else{
+            $this->loginView->setMessage(\view\LoginView::MANIPULATED_COOKIE);
+            return false;
+        }
     }
     
     /**
