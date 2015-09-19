@@ -16,7 +16,7 @@ $loginmodel = new model\LoginModel();
 //$session = new model\session();
 
 //View
-$view = new LayoutView();
+$view = new view\LayoutView();
 
 //Controller
 $controller = new controller\LoginController($loginmodel, $view);
