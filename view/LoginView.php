@@ -61,24 +61,6 @@ class LoginView {
 		return $isLoggedIn ?
 			$this->generateLogoutButtonHTML($this->messageToShow) :
 			$this->generateLoginFormHTML($this->messageToShow);
-
-
-		// if($this->checkLoginPost()){
-		// 	$message = $this->Login->getErrorMessage();
-		// }else {
-		// 	$message = '';
-		// }
-
-		// if($this->Login->getSaveUsername()){
-		// 	$savedUsername = $_POST[self::$name];
-		// }else {
-		// 	$savedUsername = '';
-		// }
-		// $message = $this->loginModel->CheckIfUserWantToLogin();;
-
-		// $response = $this->generateLoginFormHTML($message);
-		//$response .= $this->generateLogoutButtonHTML($message);
-		// return $response;
 	}
 
 	/**
