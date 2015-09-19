@@ -26,9 +26,17 @@ class LoginView {
 		$this->loginmodel = $loginmodel;
 		//$this->loginModel = new \model\LoginModel($_POST[self::$name], $_POST[self::$password]);
 	}
-
-	function getLogin(){
+	
+	function wantsToLogIn(){
 		return isset($_POST[self::$login]);
+	}
+	
+	function wantsToLogOut(){
+		return isset($_POST[self::$logout]);
+	}
+
+	function keepLoggedIn(){
+		return isset($_POST[self::$keep]);
 	}
 
 	function getName(){
@@ -39,8 +47,10 @@ class LoginView {
 		return isset($_POST[self::$password]) ? $_POST[self::$password] : "";
 	}
 
-	public function response() {
-		return $this->generateLoginFormHTML("temp?");
+	public function response($isLoggedIn) {
+		return $isLoggedIn ?
+			$this->generateLogoutButtonHTML("message?") :
+			$this->generateLoginFormHTML("temp?");
 
 
 		// if($this->checkLoginPost()){

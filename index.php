@@ -12,6 +12,8 @@ require_once('view/CookieView.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
+session_start();
+
 //Model
 $loginmodel = new model\LoginModel();
 //$session = new model\session();

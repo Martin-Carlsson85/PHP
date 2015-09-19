@@ -4,26 +4,37 @@ namespace controller;
  
 class logincontroller
 {
-    private $view, $model;
+    private $view, $model, $sessionView, $cookieView, $loginView;
 
     function __construct($model, $view){
         $this->view = $view;
         $this->model = $model;
+        $this->sessionView = new \view\SessionView();
+        $this->cookieView = new \view\CookieView();
+        $this->loginView = new \view\LoginView($this->model);
     }
     
     function run(){
-        $loginView = new \view\LoginView($this->model);
-        
         $isLoggedIn = $this->isLoggedIn();
+        //Is the user trying to log in with the form?
         if(!$isLoggedIn && $this->doesTheUserWantToLogin()) {
-            if($this->model->TryLogin($loginView->getName(), $loginView->getPassword()))
+            //Was the login successful?
+            if($this->model->TryLogin($this->loginView->getName(), $this->loginView->getPassword())){
                 $isLoggedIn = true;
-            //TODO: Add to session AND cookie
+                $this->sessionView->saveLoginSession($this->loginView->getName(), $this->loginView->getPassword());
+                if($this->loginView->keepLoggedIn())
+                    $this->cookieView->saveLoginCookie($this->loginView->getName(), $this->loginView->getPassword());
+            }
         }
         
-        //TODO: We might have to read isLoggedIn again...
+        if($isLoggedIn && $this->doesTheUserWantToLogout()) {
+            $this->sessionView->killSession();
+            $this->cookieView->killCookies();
+            $isLoggedIn = false;
+        }
+        
         $dtv = new \view\DateTimeView();
-        $this->view->render($isLoggedIn, $loginView, $dtv); //controller
+        $this->view->render($isLoggedIn, $this->loginView, $dtv); //controller
     }
     
     /**
@@ -33,8 +44,7 @@ class logincontroller
      */
     function isLoggedIn(){
         //Checking login with session
-        $sessionView = new \view\SessionView();
-        $sessionCred = $sessionView->tryGetLoginCredentials();
+        $sessionCred = $this->sessionView->tryGetLoginCredentials();
         if($sessionCred != false) {
             return $this->model->TryLogin(
                 $sessionCred[\view\SessionView::$username], 
@@ -42,12 +52,11 @@ class logincontroller
         }
         
         //Checking login with cookies
-        $cookieView = new \view\CookieView();
-        $cookieCred = $cookieView->tryGetLoginCredentials();
+        $cookieCred = $this->cookieView->tryGetLoginCredentials();
         if($cookieCred != false) {
             return $this->model->TryLogin(
-                $cookieCred[\view\SessionView::$username], 
-                $cookieCred[\view\SessionView::$password]);
+                $cookieCred[\view\CookieView::$username], 
+                $cookieCred[\view\CookieView::$password]);
         }
         return false;
     }
@@ -58,11 +67,10 @@ class logincontroller
      * @return boolean
      */
     function doesTheUserWantToLogin(){  //Funktion som kollar om användare vill logga in
-        //Villkor som hämtar ifrån view
-        return true;
-        /*if($this->loginView->getlogin()){
-            $this->username = $this->loginView->getRequestUserName();   //Hämtar användarnamn från view
-            $this->password = $this->loginView->getRequestUserPassword(); //Hämtar lösenord från view
-        }*/
+        return $this->loginView->wantsToLogIn();
+    }
+    
+    function doesTheUserWantToLogout() {
+        return $this->loginView->wantsToLogOut();
     }
 }
