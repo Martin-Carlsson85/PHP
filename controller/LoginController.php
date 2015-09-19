@@ -12,44 +12,48 @@ class logincontroller
     }
     
     function run(){
+        $loginView = new \view\LoginView($this->model);
+        
         $isLoggedIn = $this->isLoggedIn();
         if(!$isLoggedIn && $this->doesTheUserWantToLogin()) {
-            //Checking login with session
-            $sessionView = new \view\SessionView();
-            $sessionCred = $sessionView->tryGetLoginCredentials();
-            if($sessionCred != false) {
-                $this->model->CheckUsernamnandPassword(
-                    $sessionCred[\view\SessionView::$username], 
-                    $sessionCred[\view\SessionView::$password]);
-            }
-            
-            //Checking login with cookies
-            $cookieView = new \view\CookieView();
-            $cookieCred = $cookieView->tryGetLoginCredentials();
-            if($cookieCred != false) {
-                $this->model->CheckUsernamnandPassword(
-                    $cookieCred[\view\SessionView::$username], 
-                    $cookieCred[\view\SessionView::$password]);
-            }
+            if($this->model->TryLogin($loginView->getName(), $loginView->getPassword()))
+                $isLoggedIn = true;
+            //TODO: Add to session AND cookie
         }
         
         //TODO: We might have to read isLoggedIn again...
         $dtv = new \view\DateTimeView();
-        $lv = new \view\LoginView($this->model);
-        $this->view->render($isLoggedIn, $lv, $dtv); //controller
+        $this->view->render($isLoggedIn, $loginView, $dtv); //controller
     }
     
     /**
-     * Checks if the user is logged in.
+     * Checks if the user is logged in with session or cookies.
      * 
      * @return boolean
      */
     function isLoggedIn(){
+        //Checking login with session
+        $sessionView = new \view\SessionView();
+        $sessionCred = $sessionView->tryGetLoginCredentials();
+        if($sessionCred != false) {
+            return $this->model->TryLogin(
+                $sessionCred[\view\SessionView::$username], 
+                $sessionCred[\view\SessionView::$password]);
+        }
+        
+        //Checking login with cookies
+        $cookieView = new \view\CookieView();
+        $cookieCred = $cookieView->tryGetLoginCredentials();
+        if($cookieCred != false) {
+            return $this->model->TryLogin(
+                $cookieCred[\view\SessionView::$username], 
+                $cookieCred[\view\SessionView::$password]);
+        }
         return false;
     }
     
     /**
-     * Checks if the user wants to log in.
+     * Checks if the user wants to log in via form.
      * 
      * @return boolean
      */

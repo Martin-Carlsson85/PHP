@@ -10,13 +10,20 @@ class LoginModel{
     function __construct(){
     }
     
-    function CheckUsernamnandPassword($username, $password){
-        if(empty ($this->username)){
-            return 'Username is missing';
+    /**
+     * Implementation of login, if successful, return true, else return false.
+     * TODO: Somehow return an error message with false.
+     * 
+     * @return boolean
+     */
+    function TryLogin($username, $password){
+        if($username === $this->username && $password === $this->password){
+            
+            return true;
+            //return 'Username is missing';
+            //return 'Password is missin';
         }
-        if(empty ($this->password)){
-            return 'Password is missin';
-        }
+        return false;
     }
     
     

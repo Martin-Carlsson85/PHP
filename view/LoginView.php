@@ -12,7 +12,7 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
-	
+
 
 	/**
 	 * Create HTTP response
@@ -21,41 +21,41 @@ class LoginView {
 	 *
 	 * @return  void BUT writes to standard output and cookies!
 	 */
-	 
+
 	function __construct($loginmodel){
 		$this->loginmodel = $loginmodel;
 		//$this->loginModel = new \model\LoginModel($_POST[self::$name], $_POST[self::$password]);
 	}
-	
+
 	function getLogin(){
-		return isset (self::$login);
+		return isset($_POST[self::$login]);
 	}
-	
+
 	function getName(){
-		return isset (self::$username);
+		return isset($_POST[self::$name]) ? $_POST[self::$name] : "";
 	}
-	
+
 	function getPassword(){
-		return isset (self::$password);
+		return isset($_POST[self::$password]) ? $_POST[self::$password] : "";
 	}
-	
+
 	public function response() {
-		return "HEJSAN";
-		
-		
+		return $this->generateLoginFormHTML("temp?");
+
+
 		// if($this->checkLoginPost()){
 		// 	$message = $this->Login->getErrorMessage();
 		// }else {
 		// 	$message = '';
 		// }
-		
+
 		// if($this->Login->getSaveUsername()){
 		// 	$savedUsername = $_POST[self::$name];
 		// }else {
 		// 	$savedUsername = '';
 		// }
 		// $message = $this->loginModel->CheckIfUserWantToLogin();;
-		
+
 		// $response = $this->generateLoginFormHTML($message);
 		//$response .= $this->generateLogoutButtonHTML($message);
 		// return $response;
@@ -74,7 +74,7 @@ class LoginView {
 			</form>
 		';
 	}
-	
+
 	/**
 	* Generate HTML code on the output buffer for the logout button
 	* @param $message, String output message
@@ -82,11 +82,11 @@ class LoginView {
 	*/
 	private function generateLoginFormHTML($message) {
 		return '
-			<form method="post" > 
+			<form method="post" >
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
-					
+
 					<label for="' . self::$name . '">Username :</label>
 					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
 
@@ -95,19 +95,19 @@ class LoginView {
 
 					<label for="' . self::$keep . '">Keep me logged in  :</label>
 					<input type="checkbox" id="' . self::$keep . '" name="' . self::$keep . '" />
-					
+
 					<input type="submit" name="' . self::$login . '" value="login" />
 				</fieldset>
 			</form>
 		';
 	}
-	
+
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName() {
 		//RETURN REQUEST VARIABLE: USERNAME
 	}
 	private function getRequestUserPassword(){}
-	
+
 	private function getRequestUserLogin(){}
-	
+
 }
