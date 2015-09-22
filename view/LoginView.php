@@ -30,7 +30,7 @@ class LoginView {
 
 	function __construct($loginmodel){
 		$this->loginmodel = $loginmodel;
-		//$this->loginModel = new \model\LoginModel($_POST[self::$name], $_POST[self::$password]);
+		
 	}
 	
 	function wantsToLogIn(){

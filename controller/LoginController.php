@@ -92,7 +92,7 @@ class logincontroller
      * 
      * @return boolean
      */
-    function doesTheUserWantToLogin(){  //Funktion som kollar om användare vill logga in
+    function doesTheUserWantToLogin(){  //Function that checks if the user wants to log in
         return $this->loginView->wantsToLogIn();
     }
     
