@@ -33,6 +33,16 @@ class LoginView {
 		
 	}
 	
+	function getUserCredentials(){
+		return new \model\UserCredentials($this->getName(),
+										$this->getPassword(), 
+										$this->getUserClient());
+	}
+	
+	function getUserClient() {
+		return new \model\UserClient($_SERVER["REMOTE_ADDR"], $_SERVER["HTTP_USER_AGENT"]);
+	}
+	
 	function wantsToLogIn(){
 		return isset($_POST[self::$login]);
 	}
@@ -99,18 +109,9 @@ class LoginView {
 					<input type="checkbox" id="' . self::$keep . '" name="' . self::$keep . '" />
 
 					<input type="submit" name="' . self::$login . '" value="login" />
-					<a href="register.php">Register a new user</a>
+					<a href="?register">Register a new user</a>
 				</fieldset>
 			</form>
 		';
 	}
-
-	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
-	private function getRequestUserName() {
-		//RETURN REQUEST VARIABLE: USERNAME
-	}
-	private function getRequestUserPassword(){}
-
-	private function getRequestUserLogin(){}
-
 }

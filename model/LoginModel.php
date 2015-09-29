@@ -37,4 +37,11 @@ class LoginModel{
         return false;
     }
 
+    function TryLoginUserCred(\model\UserCredentials $cred){
+        if($cred->getName() === $this->username &&
+            $cred->getPassword() === $this->password)
+            return true;
+        $this->message = self::WRONG_CREDENTIALS;
+        return false;
+    }
 }
