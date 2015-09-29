@@ -99,6 +99,7 @@ class LoginView {
 					<input type="checkbox" id="' . self::$keep . '" name="' . self::$keep . '" />
 
 					<input type="submit" name="' . self::$login . '" value="login" />
+					<a href="register.php">Register a new user</a>
 				</fieldset>
 			</form>
 		';

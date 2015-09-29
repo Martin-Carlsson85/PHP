@@ -1,7 +1,7 @@
 <?php
 //INCLUDE THE FILES NEEDED...
 require_once('model/LoginModel.php');
-require_once('controller/LoginController.php');
+require_once('controller/MainController.php');
 require_once('view/LayoutView.php');
 require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
@@ -22,7 +22,7 @@ $loginmodel = new model\LoginModel();
 $view = new view\LayoutView();
 
 //Controller
-$controller = new controller\LoginController($loginmodel, $view);
+$controller = new controller\MainController($loginmodel, $view);
 
 //Start the application
 $controller->run();

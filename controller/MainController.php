@@ -2,7 +2,7 @@
 
 namespace controller;
  
-class logincontroller
+class MainController
 {
     private $view, $model, $sessionView, $cookieView, $loginView;
 
@@ -17,6 +17,7 @@ class logincontroller
     function run(){
         //Check if the user is logged in
         $isLoggedIn = $this->isLoggedIn();
+        
         //Is the user trying to log in with the form?
         if(!$isLoggedIn && $this->doesTheUserWantToLogin()) {
             //Was the login successful?
