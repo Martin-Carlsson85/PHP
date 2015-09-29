@@ -34,8 +34,8 @@ class LoginView {
 	}
 	
 	function getUserCredentials(){
-		return new \model\UserCredentials($this->getName(),
-										$this->getPassword(), 
+		return new \model\UserCredentials(new \model\User($this->getName(),
+										$this->getPassword()),
 										$this->getUserClient());
 	}
 	

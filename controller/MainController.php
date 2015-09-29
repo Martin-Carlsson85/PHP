@@ -45,9 +45,11 @@ class MainController
         }
 
 
-        $regController = new RegistrationController(new RegistrationModel(), new RegisterView());
-        if ($regController->run()) {
+        $regController = new RegistrationController();
+        if (($regControllerReturn = $regController->run()) === true) {
             return;
+        } elseif($regControllerReturn !== false) {
+            $this->loginView->setMessage($regControllerReturn);
         }
 
         $dtv = new \view\DateTimeView();

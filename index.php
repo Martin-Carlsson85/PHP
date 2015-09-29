@@ -1,9 +1,12 @@
 <?php
 //INCLUDE THE FILES NEEDED...
+require_once('model/User.php');
+require_once('model/UsersDAL.php');
 require_once('model/LoginModel.php');
 require_once('model/RegistrationModel.php');
 require_once('model/UserClient.php');
 require_once('model/UserCredentials.php');
+require_once('model/RegistrationCredentials.php');
 require_once('controller/MainController.php');
 require_once('controller/RegistrationController.php');
 require_once('view/LayoutView.php');

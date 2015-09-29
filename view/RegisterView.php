@@ -2,11 +2,16 @@
 namespace view;
 
 class RegisterView {
+    const USERNAME_TOO_SHORT ="Username has too few characters, at least 3 characters.";
+    const PASSWORD_TOO_SHORT ="Password has too few characters, at least 6 characters.";
+
     private static $register = 'RegisterView::Register';
 	private static $name = 'RegisterView::UserName';
 	private static $password = 'RegisterView::Password';
 	private static $passwordRepeat = 'RegisterView::PasswordRepeat';
 	private static $messageId = 'RegisterView::Message';
+
+    private $messageToShow = "";
 
 
     static function wantsToRegister(){
@@ -15,15 +20,35 @@ class RegisterView {
     function tryingToRegister(){
         return isset($_POST[self::$register]);
     }
+
+    function setMessage($message){
+        $this->messageToShow = $message;
+    }
+
+    function getRegistrationCredentials(){
+        return new \model\RegistrationCredentials($this->getUsername(), $this->getPassword(), $this->getPasswordRepeat());
+    }
+
+    private function getUsername(){
+        return isset($_POST[self::$name]) ? $_POST[self::$name] : "";
+    }
+
+    private function getPassword(){
+        return isset($_POST[self::$password]) ? $_POST[self::$password] : "";
+    }
+
+    private function getPasswordRepeat(){
+        return isset($_POST[self::$passwordRepeat]) ? $_POST[self::$passwordRepeat] : "";
+    }
+
     function showFormHTML(){
-        $message = "";
         echo '<form method="post" >
 				<fieldset>
 					<legend>Register - enter Username and password</legend>
-					<p id="' . self::$messageId . '">' . $message . '</p>
+					<p id="' . self::$messageId . '">' . $this->messageToShow . '</p>
 
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="'. strip_tags($this->getUsername()) .'" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />

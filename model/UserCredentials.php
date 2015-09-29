@@ -3,33 +3,26 @@
 namespace model;
 
 class UserCredentials {
-    private $userName;
-	private $password;
-	//private $tempPassword;
+    private $user;
 	private $client;
 	
-	public function __construct($name, $password, UserClient $client) {
-		$this->userName = htmlspecialchars($name);
-		$this->password = htmlspecialchars($password);
-		//$this->tempPassword = $tempPassword;
+	public function __construct(User $user, UserClient $client) {
+		$this->user = $user;
 		$this->client = $client;
 	}
 	public function getName() {
-		return $this->userName;
+		return $this->user->userName;
 	}
 	public function getPassword() {
-		return $this->password;
-	}
-	public function getTempPassword() {
-		return $this->tempPassword;
+		return $this->user->password;
 	}
 	public function getClient()  {
 		return $this->client;
 	}
 	
 	function isSame(UserCredentials $other){
-	    return  $this->client->isSame($other) &&
-	            $this->userName == $other->username &&
-	            $this->password == $other->password;
+	    return  $this->client->isSame($other->getClient()) &&
+	            $this->getName() == $other->getName() &&
+	            $this->getName() == $other->getName();
 	}
 }
