@@ -27,5 +27,7 @@ class CookieView{
     function killCookies(){
         setcookie(self::$username, "", time() - (6000));
         setcookie(self::$password, "", time() - (6000));
+        unset($_COOKIE[self::$username]);
+        unset($_COOKIE[self::$password]);
     }
 }

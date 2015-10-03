@@ -13,6 +13,7 @@ class LoginModel{
     public $message = "";
     
     function __construct(){
+
     }
     
     /**

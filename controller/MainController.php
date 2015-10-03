@@ -2,9 +2,6 @@
 
 namespace controller;
 
-use model\RegistrationModel;
-use view\RegisterView;
-
 class MainController
 {
     private $view, $model, $sessionView, $cookieView, $loginView;
@@ -22,7 +19,6 @@ class MainController
     {
         //Check if the user is logged in
         $isLoggedIn = $this->isLoggedIn();
-
         //Is the user trying to log in with the form?
         if (!$isLoggedIn && $this->doesTheUserWantToLogin()) {
             //Was the login successful?
@@ -36,7 +32,6 @@ class MainController
                 $this->loginView->setMessage($this->model->message);
             }
         }
-
         if ($isLoggedIn && $this->doesTheUserWantToLogout()) {
             $this->sessionView->killSession();
             $this->cookieView->killCookies();
@@ -44,12 +39,14 @@ class MainController
             $this->loginView->setMessage(\view\LoginView::GOODBYE_MESSAGE);
         }
 
-
         $regController = new RegistrationController();
-        if (($regControllerReturn = $regController->run()) === true) {
-            return;
-        } elseif($regControllerReturn !== false) {
-            $this->loginView->setMessage($regControllerReturn);
+        if ($regController->shouldRun()) {
+            if ($regController->run()) {
+                return;
+            } else {
+                $this->loginView->setMessage($regController->getMessage());
+                $this->loginView->setName($regController->getUsername());
+            }
         }
 
         $dtv = new \view\DateTimeView();

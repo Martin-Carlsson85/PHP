@@ -15,6 +15,7 @@ class RegisterView {
 
 
     static function wantsToRegister(){
+        //TODO: bort med strängberonden
         return isset($_GET['register']);
     }
     function tryingToRegister(){
@@ -29,9 +30,9 @@ class RegisterView {
         return new \model\RegistrationCredentials($this->getUsername(), $this->getPassword(), $this->getPasswordRepeat());
     }
 
-    private function getUsername(){
+    public function getUsername(){
         return isset($_POST[self::$name]) ? $_POST[self::$name] : "";
-    }
+}
 
     private function getPassword(){
         return isset($_POST[self::$password]) ? $_POST[self::$password] : "";
@@ -42,7 +43,7 @@ class RegisterView {
     }
 
     function showFormHTML(){
-        echo '<form method="post" >
+        echo '<form method="post" action="./" >
 				<fieldset>
 					<legend>Register - enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $this->messageToShow . '</p>

@@ -17,6 +17,13 @@ class RegistrationController
         $this->view = new RegisterView();
     }
 
+    function shouldRun(){
+        return $this->view->tryingToRegister() || $this->view->wantsToRegister();
+    }
+
+    /**
+     * @return bool
+     */
     function run()
     {
         //Trying to register with form
@@ -24,9 +31,11 @@ class RegistrationController
             $validation = $this->model->validate($user = $this->view->getRegistrationCredentials());
             if ($validation !== true) {
                 $this->view->setMessage($validation);
+                $this->view->showFormHTML();
+                return true;
             } else { //Valid user input
                 $this->usersDAL->saveUser($user);
-                return "Registered new user.";
+                return false;
             }
         }
 
@@ -37,5 +46,14 @@ class RegistrationController
         }
 
         return false;
+    }
+
+    function getUsername(){
+        return $this->view->getUsername();
+    }
+
+    function getMessage(){
+        //TODO: Inga strängberoenden
+        return "Registered new user.";
     }
 }
