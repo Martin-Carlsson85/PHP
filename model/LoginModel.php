@@ -2,47 +2,48 @@
 
 namespace model;
 
-class LoginModel{
+class LoginModel
+{
     const MISSING_USERNAME = "Username is missing";
     const MISSING_PASSWORD = "Password is missing";
     const WRONG_CREDENTIALS = "Wrong name or password";
-    
-    private $username = 'Admin';
-    private $password = 'Password';
-    
-    public $message = "";
-    
-    function __construct(){
 
+    public $message = "";
+
+    function __construct()
+    {
     }
-    
+
     /**
      * Implementation of login, if successful, return true, else return false.
-     * 
+     *
      * @return boolean
      */
-    function TryLogin($username, $password){
-        if(empty($username)){
+    function TryLogin($username, $password)
+    {
+        if (empty($username)) {
             $this->message = self::MISSING_USERNAME;
             return false;
         }
-        if(empty($password)){
+        if (empty($password)) {
             $this->message = self::MISSING_PASSWORD;
             return false;
         }
-            
-        if($username === $this->username && $password === $this->password){
+
+        $usersDAL = UsersDAL::getInstance();
+        if (($user = $usersDAL->getUser($username)) && $username === $user->userName && $password === $user->password) {
             return true;
         }
         $this->message = self::WRONG_CREDENTIALS;
         return false;
     }
 
-    function TryLoginUserCred(\model\UserCredentials $cred){
-        if($cred->getName() === $this->username &&
+    function TryLoginUserCred(\model\UserCredentials $cred)
+    {
+        /*if($cred->getName() === $this->username &&
             $cred->getPassword() === $this->password)
             return true;
-        $this->message = self::WRONG_CREDENTIALS;
-        return false;
+        $this->message = self::WRONG_CREDENTIALS;*/
+        return $this->TryLogin($cred->getName(), $cred->getPassword());
     }
 }

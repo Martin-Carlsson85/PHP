@@ -7,7 +7,7 @@ class DateTimeView {
 		date_default_timezone_set("Europe/Stockholm");
 		
 		$day= date("l");
-		$dayOfMonth = date("d");
+		$dayOfMonth = date("j");
 		$dateSuffix = date("S");
 		$month = date("F");
 		$year = date("Y");

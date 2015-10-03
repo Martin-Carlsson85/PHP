@@ -8,11 +8,13 @@ use view\RegisterView;
 
 class RegistrationController
 {
+    const REGISTER_SUCCESS_MESSAGE = "Registered new user.";
+
     private $view, $model, $usersDAL;
 
     function __construct()
     {
-        $this->usersDAL = new UsersDAL();
+        $this->usersDAL = UsersDAL::getInstance();
         $this->model = new RegistrationModel($this->usersDAL);
         $this->view = new RegisterView();
     }
@@ -53,7 +55,6 @@ class RegistrationController
     }
 
     function getMessage(){
-        //TODO: Inga strängberoenden
-        return "Registered new user.";
+        return self::REGISTER_SUCCESS_MESSAGE;
     }
 }

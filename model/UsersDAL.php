@@ -6,38 +6,69 @@ class UsersDAL
 {
     const SAVE_FILE_LOCATION = "./Data/users";
 
-    public static $usersDal = null;
+    private static $instance = null;
 
     private $users = array();
 
     /**
      * Do not call this method! Use getUsersDAL() instead!
      */
-    function __construct()
+    protected function __construct()
     {
-        //TODO: Load file here, if file does not exist, create it now
+        if (file_exists(self::SAVE_FILE_LOCATION) && is_file(self::SAVE_FILE_LOCATION))
+            $this->readFile(self::SAVE_FILE_LOCATION);
     }
 
-    private static function init()
+    private function readFile($fileName)
     {
-        if (self::$usersDal == null)
-            self::$usersDal = new UsersDAL();
+        $file = fopen($fileName, "r");
+        while (($line = fgets($file)) !== false) {
+            $explodedLine = explode(';', trim($line));
+            $this->users[] = new User($explodedLine[0], $explodedLine[1]);
+        }
     }
 
-    public static function getUsersDAL()
+    /**
+     * Private clone method to prevent cloning of the instance to the singleton instance
+     */
+    private function __clone()
     {
-        self::init();
-        return self::$usersDal;
+    }
+
+    /**
+     *  Private unserialize method to prevent unserializing of the singleton instance
+     */
+    private function __wakeup()
+    {
+    }
+
+    public static function getInstance()
+    {
+        if (static::$instance === null)
+            static::$instance = new static();
+
+        return static::$instance;
     }
 
     private function getUsers()
     {
-        //TODO: Return users saved in file
+        return $this->users;
     }
 
     function saveUser(RegistrationCredentials $userToSave)
     {
-        //TODO: Save user to file
+        $this->users[] = new User($userToSave->getUsername(), $userToSave->getPassword());
+        $this->writeFile($this->users);
+    }
+
+    private function writeFile($users)
+    {
+        $stringToWrite = "";
+        foreach ($users as $user) {
+            $stringToWrite .= $user . "\n";
+        }
+
+        file_put_contents(self::SAVE_FILE_LOCATION, $stringToWrite);
     }
 
     /**
@@ -47,8 +78,10 @@ class UsersDAL
      */
     function getUser($username)
     {
-        if ($username == "Admin")
-            return new User($username, "lösenord");
+        foreach ($this->users as $user) {
+            if ($username == $user->userName)
+                return $user;
+        }
         return false;
     }
 }

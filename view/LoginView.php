@@ -125,7 +125,7 @@ class LoginView
 					<input type="checkbox" id="' . self::$keep . '" name="' . self::$keep . '" />
 
 					<input type="submit" name="' . self::$login . '" value="login" />
-					<a href="?register">Register a new user</a>
+					<a href="?' . RegisterView::$registerPostKey . '">Register a new user</a>
 				</fieldset>
 			</form>
 		';

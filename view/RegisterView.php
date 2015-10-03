@@ -5,6 +5,7 @@ class RegisterView {
     const USERNAME_TOO_SHORT ="Username has too few characters, at least 3 characters.";
     const PASSWORD_TOO_SHORT ="Password has too few characters, at least 6 characters.";
 
+    public static $registerPostKey = "register";
     private static $register = 'RegisterView::Register';
 	private static $name = 'RegisterView::UserName';
 	private static $password = 'RegisterView::Password';
@@ -15,8 +16,7 @@ class RegisterView {
 
 
     static function wantsToRegister(){
-        //TODO: bort med strängberonden
-        return isset($_GET['register']);
+        return isset($_GET[self::$registerPostKey]);
     }
     function tryingToRegister(){
         return isset($_POST[self::$register]);
