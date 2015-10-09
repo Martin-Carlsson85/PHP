@@ -6,16 +6,16 @@ class MainController
 {
     private $view, $model,
         $sessionView, $cookieView, $loginView,
-        $loginController;
+        $fileContoller, $loginController;
 
-    function __construct(\model\LoginModel $model, \view\LayoutView $view, \view\LoginView $loginView)
+    function __construct(\model\LoginModel $model, \view\LayoutView $view)
     {
-        $this->model = $model;
         $this->view = $view;
-        $this->loginView = $loginView;
+        $this->model = $model;
         $this->loginController = new LoginController();
         $this->sessionView = new \view\SessionView();
         $this->cookieView = new \view\CookieView();
+        $this->loginView = new \view\LoginView($this->model);
     }
 
     /**
@@ -57,7 +57,9 @@ class MainController
                 $this->loginView->setName($regController->getUsername());
             }
         }
-        return $isLoggedIn;
+
+        $dtv = new \view\DateTimeView();
+        $this->view->render($isLoggedIn, $this->loginView, $dtv); //controller
     }
 
     /**

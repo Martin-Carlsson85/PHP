@@ -29,13 +29,10 @@ $loginmodel = new model\LoginModel();
 
 //View
 $view = new view\LayoutView();
-$loginView = new \view\LoginView($loginmodel);
-$dtv = new view\DateTimeView();
 
 //Controller
-$controller = new controller\MainController($loginmodel, $view, $loginView);
+$controller = new controller\MainController($loginmodel, $view);
 
 //Start the application
-$isLoggedIn = $controller->run();
+$controller->run();
 
-$view->render($isLoggedIn, $loginView, $dtv); //controller
