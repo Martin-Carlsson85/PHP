@@ -8,11 +8,11 @@ class MainController
         $sessionView, $cookieView, $loginView,
         $fileContoller, $loginController;
 
-    function __construct(\model\LoginModel $model, \view\LayoutView $view, \view\LoginView $loginView)
+    function __construct(\model\LoginModel $model, \view\LayoutView $view)
     {
         $this->model = $model;
         $this->view = $view;
-        $this->loginView = $loginView;
+        $this->loginView = new \view\LoginView($model);
         $this->loginController = new LoginController();
         $this->fileContoller = new FileController();
         $this->sessionView = new \view\SessionView();
@@ -24,10 +24,10 @@ class MainController
      */
     function run()
     {
-        if($this->fileContoller->hasURL()){
-            //TODO: DO download stuff here plz
+        if ($this->fileContoller->hasURL() || $this->fileContoller->wantsToDownload()) {
+            $this->fileContoller->renderDownloadPage();
         } else {
-            if($this->loginController->isLoggedIn()){
+            if ($this->loginController->isLoggedIn()) {
 
             }
             //Check if the user is logged in
@@ -61,8 +61,9 @@ class MainController
                     $this->loginView->setName($regController->getUsername());
                 }
             }
+            $dtv = new \view\DateTimeView();
+            $this->view->render($isLoggedIn, $this->loginView, $dtv); //controller
         }
-        return $isLoggedIn;
     }
 
     /**
