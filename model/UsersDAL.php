@@ -19,6 +19,10 @@ class UsersDAL
             $this->readFile(self::SAVE_FILE_LOCATION);
     }
 
+    /**
+     * Reads users from a file
+     * @param $fileName
+     */
     private function readFile($fileName)
     {
         $file = fopen($fileName, "r");
@@ -42,6 +46,11 @@ class UsersDAL
     {
     }
 
+    /**
+     * This is to make UserDAL singleton, if there is no instance of UserDAL, make one,
+     * else return the instance
+     * @return UsersDAL
+     */
     public static function getInstance()
     {
         if (static::$instance === null)
@@ -50,17 +59,29 @@ class UsersDAL
         return static::$instance;
     }
 
+    /**
+     * Returns the array containing the users from the file
+     * @return array
+     */
     private function getUsers()
     {
         return $this->users;
     }
 
+    /**
+     * Saves a user to the file
+     * @param RegistrationCredentials $userToSave
+     */
     function saveUser(RegistrationCredentials $userToSave)
     {
         $this->users[] = new User($userToSave->getUsername(), $userToSave->getPassword());
         $this->writeFile($this->users);
     }
 
+    /**
+     * Writes all users to file
+     * @param $users
+     */
     private function writeFile($users)
     {
         $stringToWrite = "";
@@ -78,7 +99,7 @@ class UsersDAL
      */
     function getUser($username)
     {
-        foreach ($this->users as $user) {
+        foreach ($this->getUsers() as $user) {
             if ($username == $user->userName)
                 return $user;
         }

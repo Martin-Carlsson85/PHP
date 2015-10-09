@@ -3,6 +3,10 @@
 namespace view;
 class DateTimeView {
 
+    /**
+     * Creates a string containing date, time and stuff for render on screen later
+     * @return string
+     */
 	public function show() {
 		date_default_timezone_set("Europe/Stockholm");
 		

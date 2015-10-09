@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$/Data/users" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/controller/FileController.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/controller/LoginController.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/controller/MainController.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/model/LoginModel.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/model/User.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/model/UsersDAL.php" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
