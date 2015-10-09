@@ -7,6 +7,7 @@ require_once('model/RegistrationModel.php');
 require_once('model/UserClient.php');
 require_once('model/UserCredentials.php');
 require_once('model/RegistrationCredentials.php');
+require_once('controller/FileController.php');
 require_once('controller/MainController.php');
 require_once('controller/RegistrationController.php');
 require_once('controller/LoginController.php');

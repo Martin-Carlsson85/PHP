@@ -6,7 +6,7 @@ class MainController
 {
     private $view, $model,
         $sessionView, $cookieView, $loginView,
-        $loginController;
+        $fileContoller, $loginController;
 
     function __construct(\model\LoginModel $model, \view\LayoutView $view, \view\LoginView $loginView)
     {
@@ -14,6 +14,7 @@ class MainController
         $this->view = $view;
         $this->loginView = $loginView;
         $this->loginController = new LoginController();
+        $this->fileContoller = new FileController();
         $this->sessionView = new \view\SessionView();
         $this->cookieView = new \view\CookieView();
     }
@@ -23,38 +24,42 @@ class MainController
      */
     function run()
     {
-        if ($this->loginController->isLoggedIn()) {
+        if($this->fileContoller->hasURL()){
+            //TODO: DO download stuff here plz
+        } else {
+            if($this->loginController->isLoggedIn()){
 
-        }
-        //Check if the user is logged in
-        $isLoggedIn = $this->isLoggedIn();
-        //Is the user trying to log in with the form?
-        if (!$isLoggedIn && $this->doesTheUserWantToLogin()) {
-            //Was the login successful?
-            if ($this->model->TryLogin($this->loginView->getName(), $this->loginView->getPassword())) {
-                $isLoggedIn = true;
-                $this->sessionView->saveLoginSession($this->loginView->getUserCredentials());
-                if ($this->loginView->keepLoggedIn())
-                    $this->cookieView->saveLoginCookie($this->loginView->getName(), $this->loginView->getPassword());
-                $this->loginView->setMessage(\view\LoginView::WELCOME_MESSAGE);
-            } else {
-                $this->loginView->setMessage($this->model->message);
             }
-        }
-        if ($isLoggedIn && $this->doesTheUserWantToLogout()) {
-            $this->sessionView->killSession();
-            $this->cookieView->killCookies();
-            $isLoggedIn = false;
-            $this->loginView->setMessage(\view\LoginView::GOODBYE_MESSAGE);
-        }
+            //Check if the user is logged in
+            $isLoggedIn = $this->isLoggedIn();
+            //Is the user trying to log in with the form?
+            if (!$isLoggedIn && $this->doesTheUserWantToLogin()) {
+                //Was the login successful?
+                if ($this->model->TryLogin($this->loginView->getName(), $this->loginView->getPassword())) {
+                    $isLoggedIn = true;
+                    $this->sessionView->saveLoginSession($this->loginView->getUserCredentials());
+                    if ($this->loginView->keepLoggedIn())
+                        $this->cookieView->saveLoginCookie($this->loginView->getName(), $this->loginView->getPassword());
+                    $this->loginView->setMessage(\view\LoginView::WELCOME_MESSAGE);
+                } else {
+                    $this->loginView->setMessage($this->model->message);
+                }
+            }
+            if ($isLoggedIn && $this->doesTheUserWantToLogout()) {
+                $this->sessionView->killSession();
+                $this->cookieView->killCookies();
+                $isLoggedIn = false;
+                $this->loginView->setMessage(\view\LoginView::GOODBYE_MESSAGE);
+            }
 
-        $regController = new RegistrationController();
-        if ($regController->shouldRun()) {
-            if ($regController->run()) {
-                return;
-            } else {
-                $this->loginView->setMessage($regController->getMessage());
-                $this->loginView->setName($regController->getUsername());
+            $regController = new RegistrationController();
+            if ($regController->shouldRun()) {
+                if ($regController->run()) {
+                    return;
+                } else {
+                    $this->loginView->setMessage($regController->getMessage());
+                    $this->loginView->setName($regController->getUsername());
+                }
             }
         }
         return $isLoggedIn;
