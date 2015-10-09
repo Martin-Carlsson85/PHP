@@ -30,7 +30,7 @@ class FilesDAL
             $explodedLine = explode(';', trim($line));
             $this->files[$explodedLine[1]] = new File($explodedLine[0], $explodedLine[1], $explodedLine[2]);
         }
-        var_dump($this->files["dsad"]);
+        //var_dump($this->files["dsad"]);
     }
 
     /**

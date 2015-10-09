@@ -2,29 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f3a96dc-93ab-4aba-9e6f-f8c9f6da1a11" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/model/file/File.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controller/file/FileController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/model/file/FilesDAL.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Data/files.data" />
-      <change type="DELETED" beforePath="C:\Users\info_000\Documents\1DV608-mc22dg-assignment-4\controller\FileController.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\info_000\Documents\1DV608-mc22dg-assignment-4\view\CookieView.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\info_000\Documents\1DV608-mc22dg-assignment-4\view\LayoutView.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\info_000\Documents\1DV608-mc22dg-assignment-4\view\LoginView.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\info_000\Documents\1DV608-mc22dg-assignment-4\view\RegisterView.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Users\info_000\Documents\1DV608-mc22dg-assignment-4\view\SessionView.php" afterPath="" />
-      <change type="MOVED" beforePath="C:\Users\info_000\Documents\1DV608-mc22dg-assignment-4\controller\LoginController.php" afterPath="$PROJECT_DIR$/controller/user/LoginController.php" />
-      <change type="MOVED" beforePath="C:\Users\info_000\Documents\1DV608-mc22dg-assignment-4\controller\RegistrationController.php" afterPath="$PROJECT_DIR$/controller/user/RegistrationController.php" />
-      <change type="MOVED" beforePath="C:\Users\info_000\Documents\1DV608-mc22dg-assignment-4\model\LoginModel.php" afterPath="$PROJECT_DIR$/model/user/LoginModel.php" />
-      <change type="MOVED" beforePath="C:\Users\info_000\Documents\1DV608-mc22dg-assignment-4\model\RegistrationCredentials.php" afterPath="$PROJECT_DIR$/model/user/RegistrationCredentials.php" />
-      <change type="MOVED" beforePath="C:\Users\info_000\Documents\1DV608-mc22dg-assignment-4\model\RegistrationModel.php" afterPath="$PROJECT_DIR$/model/user/RegistrationModel.php" />
-      <change type="MOVED" beforePath="C:\Users\info_000\Documents\1DV608-mc22dg-assignment-4\model\User.php" afterPath="$PROJECT_DIR$/model/user/User.php" />
-      <change type="MOVED" beforePath="C:\Users\info_000\Documents\1DV608-mc22dg-assignment-4\model\UserClient.php" afterPath="$PROJECT_DIR$/model/user/UserClient.php" />
-      <change type="MOVED" beforePath="C:\Users\info_000\Documents\1DV608-mc22dg-assignment-4\model\UserCredentials.php" afterPath="$PROJECT_DIR$/model/user/UserCredentials.php" />
-      <change type="MOVED" beforePath="C:\Users\info_000\Documents\1DV608-mc22dg-assignment-4\model\UsersDAL.php" afterPath="$PROJECT_DIR$/model/user/UsersDAL.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/MainController.php" afterPath="$PROJECT_DIR$/controller/MainController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/file/FilesDAL.php" afterPath="$PROJECT_DIR$/model/file/FilesDAL.php" />
     </list>
     <ignored path="1DV608-mc22dg-assignment-4.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -89,7 +67,7 @@
       <file leaf-file-name="FileController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controller/file/FileController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="2.2580645">
               <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding>
                 <marker date="1444392705894" expanded="true" signature="732:774" placeholder="..." />
@@ -108,8 +86,8 @@
       <file leaf-file-name="FilesDAL.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/model/file/FilesDAL.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.49759614">
+              <caret line="32" column="10" selection-start-line="32" selection-start-column="10" selection-end-line="32" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -118,7 +96,7 @@
       <file leaf-file-name="File.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/file/File.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="-9.096774">
               <caret line="15" column="31" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="31" />
               <folding />
             </state>
@@ -687,12 +665,12 @@
       <workItem from="1443863763748" duration="9631000" />
       <workItem from="1444126167982" duration="5960000" />
       <workItem from="1444382947818" duration="7437000" />
-      <workItem from="1444393430033" duration="2000" />
+      <workItem from="1444393430033" duration="85000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35070000" />
+    <option name="totallyTimeSpent" value="35153000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -705,7 +683,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-11" y="-11" width="1942" height="1042" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.20777778" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -716,7 +694,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26666668" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21041666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21041666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1104,9 +1082,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controller/file/FileController.php">
+    <entry file="file://$PROJECT_DIR$/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/user/UsersDAL.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/file/File.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.096774">
+          <caret line="15" column="31" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/file/FileController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.2580645">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding>
             <marker date="1444392705894" expanded="true" signature="732:774" placeholder="..." />
@@ -1121,34 +1123,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/file/File.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="31" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/user/UsersDAL.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/file/FilesDAL.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="35" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.49759614">
+          <caret line="32" column="10" selection-start-line="32" selection-start-column="10" selection-end-line="32" selection-end-column="10" />
           <folding />
         </state>
       </provider>
