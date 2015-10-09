@@ -4,14 +4,14 @@ namespace view;
 
 class LayoutView {
 
-  /**
-   * Base render function, renders the skeleton of the page and calls other render function
-   * for meat
-   * @param $isLoggedIn
-   * @param LoginView $loginView
-   * @param DateTimeView $dtv
-   */
-  public function render($isLoggedIn, LoginView $loginView, DateTimeView $dtv) {
+    /**
+     * Base render function, renders the skeleton of the page and calls other render function
+     * for meat
+     * @param $isLoggedIn
+     * @param ViewInterface $viewInterface
+     * @param DateTimeView $dtv
+     */
+  public function render($isLoggedIn, ViewInterface $viewInterface, DateTimeView $dtv) {
     echo '<!DOCTYPE html>
       <html>
         <head>
@@ -23,8 +23,8 @@ class LayoutView {
           ' . $this->renderIsLoggedIn($isLoggedIn) . '
           
           <div class="container">
-              ' . $loginView->response($isLoggedIn) . '
-              
+              ' . $viewInterface->render() . '
+
               ' . $dtv->show() . '
           </div>
          </body>

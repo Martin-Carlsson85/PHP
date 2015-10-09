@@ -13,6 +13,7 @@ require_once('controller/file/FileController.php');
 require_once('controller/MainController.php');
 require_once('controller/user/RegistrationController.php');
 require_once('controller/user/LoginController.php');
+require_once('view/ViewInterface.php');
 require_once('view/user/LayoutView.php');
 require_once('view/user/LoginView.php');
 require_once('view/DateTimeView.php');

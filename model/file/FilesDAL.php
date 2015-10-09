@@ -20,7 +20,7 @@ class FilesDAL
     }
 
     /**
-     * Reads users from a file
+     * Reads files from a file
      * @param $fileName
      */
     private function readFile($fileName)
@@ -30,7 +30,6 @@ class FilesDAL
             $explodedLine = explode(';', trim($line));
             $this->files[$explodedLine[1]] = new File($explodedLine[0], $explodedLine[1], $explodedLine[2]);
         }
-        //var_dump($this->files["dsad"]);
     }
 
     /**
@@ -50,7 +49,7 @@ class FilesDAL
     /**
      * This is to make FilesDAL singleton, if there is no instance of FilesDAL, make one,
      * else return the instance
-     * @return UsersDAL
+     * @return FilesDAL
      */
     public static function getInstance()
     {
@@ -71,17 +70,17 @@ class FilesDAL
 
     /**
      * Saves a file to the file
-     * @param RegistrationCredentials $userToSave
+     * @param RegistrationCredentials $fileToSave
      */
-    /*function saveFile(RegistrationCredentials $userToSave)
+    /*function saveFile(RegistrationCredentials $fileToSave)
     {
-        $this->users[] = new User($userToSave->getUsername(), $userToSave->getPassword());
-        $this->writeFile($this->users);
+        $this->files[] = new file($fileToSave->getfilename(), $fileToSave->getPassword());
+        $this->writeFile($this->files);
     }*/
 
     /**
      * Writes all files to file
-     * @param $users
+     * @param $files
      */
     private function writeFile($files)
     {
@@ -96,14 +95,12 @@ class FilesDAL
     /**
      * Returns the file data, if file does not exist in list, return false
      * @param $fileName file to search for
-     * @return bool|User Found user or false
+     * @return bool|File Found file or false
      */
     function getFile($fileDataLocation)
     {
-        foreach ($this->getFiles() as $file) {
-            if ($fileDataLocation == $file->getFileName())
-                return $file;
-        }
+        if(array_key_exists($fileDataLocation, $this->files))
+            return $this->files[$fileDataLocation];
         return false;
     }
 }

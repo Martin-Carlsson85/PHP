@@ -62,6 +62,8 @@ class MainController
                 }
             }
             $dtv = new \view\DateTimeView();
+            //TODO: Instead of putting isLoggedIn to loginview, we should use different views
+            $this->loginView->setIsLoggedin($isLoggedIn);
             $this->view->render($isLoggedIn, $this->loginView, $dtv); //controller
         }
     }

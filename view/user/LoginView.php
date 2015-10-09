@@ -2,7 +2,7 @@
 
 namespace view;
 
-class LoginView
+class LoginView implements ViewInterface
 {
     const WELCOME_MESSAGE = "Welcome";
     const GOODBYE_MESSAGE = "Bye bye!";
@@ -17,18 +17,18 @@ class LoginView
     private static $messageId = 'LoginView::Message';
 
     private $messageToShow = "";
+    private $isLoggedIn;
 
 
     /**
      * Create HTTP response
      * Should be called after a login attempt has been determined
-     * @param $loginmodel
+     * @param $isLoggedin
      */
 
-    function __construct($loginmodel)
+    function __construct($isLoggedin)
     {
-        $this->loginmodel = $loginmodel;
-
+        $this->isLoggedin = $isLoggedin;
     }
 
     /**
@@ -116,11 +116,10 @@ class LoginView
 
     /**
      * Returns what to show from LoginView on page, depending on if user is logged in or not
-     * @param $isLoggedIn
      */
-    public function response($isLoggedIn)
+    function render()
     {
-        return $isLoggedIn ?
+        return $this->isLoggedIn ?
             $this->generateLogoutButtonHTML($this->messageToShow) :
             $this->generateLoginFormHTML($this->messageToShow);
     }
@@ -167,5 +166,13 @@ class LoginView
 				</fieldset>
 			</form>
 		';
+    }
+
+    /**
+     * @param boolean $isLoggedin
+     */
+    public function setIsLoggedin($isLoggedin)
+    {
+        $this->isLoggedin = $isLoggedin;
     }
 }
