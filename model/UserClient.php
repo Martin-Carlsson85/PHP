@@ -2,6 +2,10 @@
 
 namespace model;
 
+/**
+ * Class UserClient saves ip-address and UserClient (browser information)
+ * @package model
+ */
 class UserClient{
     public $ipAdress, $userClient;
     

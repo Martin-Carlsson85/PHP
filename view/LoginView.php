@@ -21,10 +21,8 @@ class LoginView
 
     /**
      * Create HTTP response
-     *
      * Should be called after a login attempt has been determined
-     *
-     * @return  void BUT writes to standard output and cookies!
+     * @param $loginmodel
      */
 
     function __construct($loginmodel)
@@ -33,6 +31,10 @@ class LoginView
 
     }
 
+    /**
+     * Gets UserCredentials created from values gotten from post
+     * @return \model\UserCredentials
+     */
     function getUserCredentials()
     {
         return new \model\UserCredentials(new \model\User($this->getName(),
@@ -40,46 +42,82 @@ class LoginView
             $this->getUserClient());
     }
 
+    /**
+     * Gets the UserClient of the client
+     * @return \model\UserClient
+     */
     function getUserClient()
     {
         return new \model\UserClient($_SERVER["REMOTE_ADDR"], $_SERVER["HTTP_USER_AGENT"]);
     }
 
+    /**
+     * Does the user want to log in? (Is login form button pressed?)
+     * @return bool
+     */
     function wantsToLogIn()
     {
         return isset($_POST[self::$login]);
     }
 
+    /**
+     * Does the user want to log out?
+     * @return bool
+     */
     function wantsToLogOut()
     {
         return isset($_POST[self::$logout]);
     }
 
+    /**
+     * Did the user ask to keep user credentials in cookie?
+     * @return bool
+     */
     function keepLoggedIn()
     {
         return isset($_POST[self::$keep]);
     }
 
+    /**
+     * Sets the post name (mostly for use when registering)
+     * @param $name
+     */
     function setName($name)
     {
         $_POST[self::$name] = $name;
     }
 
+    /**
+     * Returns the post name
+     * @return string
+     */
     function getName()
     {
         return isset($_POST[self::$name]) ? $_POST[self::$name] : "";
     }
 
+    /**
+     * Returns the post password
+     * @return string
+     */
     function getPassword()
     {
         return isset($_POST[self::$password]) ? $_POST[self::$password] : "";
     }
 
+    /**
+     * Sets the message to show
+     * @param $message
+     */
     function setMessage($message)
     {
         $this->messageToShow = $message;
     }
 
+    /**
+     * Returns what to show from LoginView on page, depending on if user is logged in or not
+     * @param $isLoggedIn
+     */
     public function response($isLoggedIn)
     {
         return $isLoggedIn ?

@@ -9,6 +9,7 @@ require_once('model/UserCredentials.php');
 require_once('model/RegistrationCredentials.php');
 require_once('controller/MainController.php');
 require_once('controller/RegistrationController.php');
+require_once('controller/LoginController.php');
 require_once('view/LayoutView.php');
 require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
@@ -28,10 +29,13 @@ $loginmodel = new model\LoginModel();
 
 //View
 $view = new view\LayoutView();
+$loginView = new \view\LoginView($loginmodel);
+$dtv = new view\DateTimeView();
 
 //Controller
-$controller = new controller\MainController($loginmodel, $view);
+$controller = new controller\MainController($loginmodel, $view, $loginView);
 
 //Start the application
-$controller->run();
+$isLoggedIn = $controller->run();
 
+$view->render($isLoggedIn, $loginView, $dtv); //controller

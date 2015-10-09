@@ -15,8 +15,7 @@ class LoginModel
     }
 
     /**
-     * Implementation of login, if successful, return true, else return false.
-     *
+     * Implementation of login with only username and password, if successful, return true, else return false.
      * @return boolean
      */
     function TryLogin($username, $password)
@@ -38,12 +37,13 @@ class LoginModel
         return false;
     }
 
+    /**
+     * Implementation of login with UserCredentials, if successful, return true, else return false.
+     * @param UserCredentials $cred
+     * @return bool
+     */
     function TryLoginUserCred(\model\UserCredentials $cred)
     {
-        /*if($cred->getName() === $this->username &&
-            $cred->getPassword() === $this->password)
-            return true;
-        $this->message = self::WRONG_CREDENTIALS;*/
         return $this->TryLogin($cred->getName(), $cred->getPassword());
     }
 }

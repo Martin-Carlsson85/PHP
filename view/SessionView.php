@@ -16,11 +16,18 @@ class SessionView{
                 return $_SESSION[self::$userCredentials];
         return false;
     }
-    
+
+    /**
+     * Saves UserCredentials to session
+     * @param \model\UserCredentials $userCredentials
+     */
     function saveLoginSession(\model\UserCredentials $userCredentials){
         $_SESSION[self::$userCredentials] = $userCredentials;
     }
-    
+
+    /**
+     * Silently murders the session, since we have no more use for it
+     */
     function killSession(){
         session_destroy();
     }

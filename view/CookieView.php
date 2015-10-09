@@ -18,12 +18,20 @@ class CookieView{
                 self::$username => $_COOKIE[self::$username],
                 self::$password => $_COOKIE[self::$password]);
     }
-    
+
+    /**
+     * Saves login credentials in cookies for 60 seconds
+     * @param $username
+     * @param $password
+     */
     function saveLoginCookie($username, $password){
         setcookie(self::$username, $username, time() + (60));
         setcookie(self::$password, $password, time() + (60));
     }
-    
+
+    /**
+     * Brutally murderes the cookies, we've got no more use for them.
+     */
     function killCookies(){
         setcookie(self::$username, "", time() - (6000));
         setcookie(self::$password, "", time() - (6000));

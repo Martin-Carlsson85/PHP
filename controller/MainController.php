@@ -4,19 +4,28 @@ namespace controller;
 
 class MainController
 {
-    private $view, $model, $sessionView, $cookieView, $loginView;
+    private $view, $model,
+        $sessionView, $cookieView, $loginView,
+        $loginController;
 
-    function __construct(\model\LoginModel $model, \view\LayoutView $view)
+    function __construct(\model\LoginModel $model, \view\LayoutView $view, \view\LoginView $loginView)
     {
-        $this->view = $view;
         $this->model = $model;
+        $this->view = $view;
+        $this->loginView = $loginView;
+        $this->loginController = new LoginController();
         $this->sessionView = new \view\SessionView();
         $this->cookieView = new \view\CookieView();
-        $this->loginView = new \view\LoginView($this->model);
     }
 
+    /**
+     * Main loop, does more or less everything
+     */
     function run()
     {
+        if ($this->loginController->isLoggedIn()) {
+
+        }
         //Check if the user is logged in
         $isLoggedIn = $this->isLoggedIn();
         //Is the user trying to log in with the form?
@@ -48,9 +57,7 @@ class MainController
                 $this->loginView->setName($regController->getUsername());
             }
         }
-
-        $dtv = new \view\DateTimeView();
-        $this->view->render($isLoggedIn, $this->loginView, $dtv); //controller
+        return $isLoggedIn;
     }
 
     /**
@@ -86,6 +93,11 @@ class MainController
         return false;
     }
 
+    /**
+     * Tries to log in with cookies and returns true if successful, false otherwise
+     * @param $cookieCred
+     * @return bool
+     */
     function tryLoginWithCookies($cookieCred)
     {
         //Checking login with cookies
@@ -111,6 +123,10 @@ class MainController
         return $this->loginView->wantsToLogIn();
     }
 
+    /**
+     * Checks if the user wants to log out
+     * @return bool
+     */
     function doesTheUserWantToLogout()
     {
         return $this->loginView->wantsToLogOut();
