@@ -1,7 +1,7 @@
 <?php
 namespace view;
 
-class RegisterView
+class RegisterView implements ViewInterface
 {
     const USERNAME_TOO_SHORT = "Username has too few characters, at least 3 characters.";
     const PASSWORD_TOO_SHORT = "Password has too few characters, at least 6 characters.";
@@ -81,10 +81,11 @@ class RegisterView
 
     /**
      * Renders the registration form onto the screen
+     * @return string
      */
-    function showFormHTML()
+    function render()
     {
-        echo '<form method="post" action="../" >
+        return '<form method="post" action="./" >
 				<fieldset>
 					<legend>Register - enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $this->messageToShow . '</p>
@@ -99,7 +100,7 @@ class RegisterView
 					<input type="password" id="' . self::$passwordRepeat . '" name="' . self::$passwordRepeat . '" />
 
 					<input type="submit" name="' . self::$register . '" value="register" />
-					<a href="../">Back to login</a>
+					<a href="./">Back to login</a>
 				</fieldset>
 			</form>';
     }

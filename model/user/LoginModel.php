@@ -30,7 +30,7 @@ class LoginModel
         }
 
         $usersDAL = UsersDAL::getInstance();
-        if (($user = $usersDAL->getUser($username)) && $username === $user->userName && $password === $user->password) {
+        if (($user = $usersDAL->getUser($username)) && $username === $user->userName && password_verify($password, $user->password)) {
             return true;
         }
         $this->message = self::WRONG_CREDENTIALS;

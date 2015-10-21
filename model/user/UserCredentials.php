@@ -50,4 +50,12 @@ class UserCredentials {
 	            $this->getName() == $other->getName() &&
 	            $this->getName() == $other->getName();
 	}
+
+	/**
+	 * @return User
+	 */
+	public function getUser()
+	{
+		return $this->user;
+	}
 }

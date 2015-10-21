@@ -2,9 +2,12 @@
 
 namespace model;
 
+use RuntimeException;
+
 class FilesDAL
 {
     const SAVE_FILE_LOCATION = "./Data/files.data";
+    const DOWNLOAD_LOCATION = "./Data/files/";
 
     private static $instance = null;
 
@@ -28,8 +31,23 @@ class FilesDAL
         $file = fopen($fileName, "r");
         while (($line = fgets($file)) !== false) {
             $explodedLine = explode(';', trim($line));
-            $this->files[$explodedLine[1]] = new File($explodedLine[0], $explodedLine[1], $explodedLine[2]);
+            $this->files[$explodedLine[1]] = new File(
+                $explodedLine[0],
+                $explodedLine[1],
+                $explodedLine[2],
+                $explodedLine[3],
+                $explodedLine[4]);
         }
+    }
+
+    /**
+     * Reads a file and returns it's content
+     * @param $file
+     * @return string
+     */
+    public function readFileContent($file)
+    {
+        return file_get_contents(self::DOWNLOAD_LOCATION . $file->getDataLocation());
     }
 
     /**
@@ -60,33 +78,61 @@ class FilesDAL
     }
 
     /**
-     * Returns the array containing the files from the file
-     * @return array
+     * Removes the file from download location and removes it from the list
+     * @param $fileToRemove String filename
      */
-    private function getFiles()
+    public function removeFile($fileToRemove)
     {
-        return $this->files;
+        if (file_exists(self::DOWNLOAD_LOCATION . $fileToRemove) && is_file(self::DOWNLOAD_LOCATION . $fileToRemove))
+            unlink(self::DOWNLOAD_LOCATION . $fileToRemove);
+        unset($this->files[$fileToRemove]);
+        $this->writeFileList($this->files);
     }
 
     /**
-     * Saves a file to the file
-     * @param RegistrationCredentials $fileToSave
+     * Saves a file to the database
+     * @param $fileToSave
+     * @param $description
+     * @param User $user
      */
-    /*function saveFile(RegistrationCredentials $fileToSave)
+    function saveFile($fileToSave, $description, User $user)
     {
-        $this->files[] = new file($fileToSave->getfilename(), $fileToSave->getPassword());
-        $this->writeFile($this->files);
-    }*/
+        $uid = uniqid();
+        echo "<br>";
+
+        if (!file_exists(self::DOWNLOAD_LOCATION)) {
+            mkdir(self::DOWNLOAD_LOCATION);
+        }
+        if (!move_uploaded_file($fileToSave['tmp_name'], self::DOWNLOAD_LOCATION . $uid)) {
+            throw new RuntimeException('Failed to move uploaded file.');
+        }
+        $file = new File($fileToSave["name"], $uid, $user->userName, $fileToSave["type"], $description);
+        $this->files[] = $file;
+        $this->writeFileList($this->files);
+    }
 
     /**
-     * Writes all files to file
+     * Updates a file in the list with the new information. Data location needs to be the same as the old!
+     * @param File $fileToUpdate
+     */
+    function updateFile(File $fileToUpdate)
+    {
+        //Check if file is in the array
+        if ($this->getFile($fileToUpdate->getDataLocation())) {
+            $this->files[$fileToUpdate->getDataLocation()] = $fileToUpdate;
+        }
+        $this->writeFileList($this->files);
+    }
+
+    /**
+     * Writes all files to file list file
      * @param $files
      */
-    private function writeFile($files)
+    private function writeFileList($files)
     {
         $stringToWrite = "";
-        foreach ($files as $files) {
-            $stringToWrite .= $files . "\n";
+        foreach ($files as $file) {
+            $stringToWrite .= $file . "\n";
         }
 
         file_put_contents(self::SAVE_FILE_LOCATION, $stringToWrite);
@@ -94,13 +140,28 @@ class FilesDAL
 
     /**
      * Returns the file data, if file does not exist in list, return false
-     * @param $fileName file to search for
+     * @param $fileDataLocation
      * @return bool|File Found file or false
      */
     function getFile($fileDataLocation)
     {
-        if(array_key_exists($fileDataLocation, $this->files))
+        if (array_key_exists($fileDataLocation, $this->files))
             return $this->files[$fileDataLocation];
         return false;
+    }
+
+    /**
+     * Gets an array containing all files the user owns
+     * @param $user
+     * @return array
+     */
+    function getFilesForUser($user)
+    {
+        $filesToReturn = array();
+        foreach ($this->files as $file) {
+            if ($file->getOwner() == $user)
+                $filesToReturn[] = $file;
+        }
+        return $filesToReturn;
     }
 }

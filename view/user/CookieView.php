@@ -12,7 +12,7 @@ class CookieView{
      * 
      * @return array with [$username] = "name" and [$password] = "password"
      */
-    function tryGetLoginCredentials(){
+    static function tryGetLoginCredentials(){
         if(isset($_COOKIE[self::$username]) && isset($_COOKIE[self::$password]))
             return array(
                 self::$username => $_COOKIE[self::$username],
@@ -24,7 +24,7 @@ class CookieView{
      * @param $username
      * @param $password
      */
-    function saveLoginCookie($username, $password){
+    static function saveLoginCookie($username, $password){
         setcookie(self::$username, $username, time() + (60));
         setcookie(self::$password, $password, time() + (60));
     }
@@ -32,7 +32,7 @@ class CookieView{
     /**
      * Brutally murderes the cookies, we've got no more use for them.
      */
-    function killCookies(){
+    static function killCookies(){
         setcookie(self::$username, "", time() - (6000));
         setcookie(self::$password, "", time() - (6000));
         unset($_COOKIE[self::$username]);

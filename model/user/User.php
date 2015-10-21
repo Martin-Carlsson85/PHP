@@ -12,6 +12,10 @@ class User
         $this->password = htmlspecialchars($password);
     }
 
+    /**
+     * Creates a string for easier use when saving the user to user list
+     * @return string
+     */
     public function __toString()
     {
         return $this->userName . ";" . $this->password;

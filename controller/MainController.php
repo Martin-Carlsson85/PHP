@@ -2,141 +2,51 @@
 
 namespace controller;
 
+use view\LoginView;
+
 class MainController
 {
-    private $view, $model,
-        $sessionView, $cookieView, $loginView,
-        $fileContoller, $loginController;
+    private $fileContoller, $loginController, $loginView;
 
-    function __construct(\model\LoginModel $model, \view\LayoutView $view)
+    function __construct()
     {
-        $this->model = $model;
-        $this->view = $view;
-        $this->loginView = new \view\LoginView($model);
-        $this->loginController = new LoginController();
+        $this->loginController = new LoginController($this->loginView);
         $this->fileContoller = new FileController();
-        $this->sessionView = new \view\SessionView();
-        $this->cookieView = new \view\CookieView();
     }
 
     /**
-     * Main loop, does more or less everything
+     * Main "loop"/run, does more or less everything
      */
     function run()
     {
-        if ($this->fileContoller->hasURL() || $this->fileContoller->wantsToDownload()) {
-            $this->fileContoller->renderDownloadPage();
+        //Should fileController render as page?
+        if ($this->fileContoller->shouldRender()) {
+            return $this->fileContoller->run();
         } else {
-            if ($this->loginController->isLoggedIn()) {
+            //Are we logged in?
+            if ($this->loginController->run()) {
+                //If we have another page to show when logged in, then place it here!
+                //Example:
+                $loggedInController = new LoggedInController();
+                if ($loggedInController->wantsToEdit()) {
+                    $editFileContoller = new EditFileController($loggedInController->getIdToEdit());
+                    return $editFileContoller->run();
+                }
 
-            }
-            //Check if the user is logged in
-            $isLoggedIn = $this->isLoggedIn();
-            //Is the user trying to log in with the form?
-            if (!$isLoggedIn && $this->doesTheUserWantToLogin()) {
-                //Was the login successful?
-                if ($this->model->TryLogin($this->loginView->getName(), $this->loginView->getPassword())) {
-                    $isLoggedIn = true;
-                    $this->sessionView->saveLoginSession($this->loginView->getUserCredentials());
-                    if ($this->loginView->keepLoggedIn())
-                        $this->cookieView->saveLoginCookie($this->loginView->getName(), $this->loginView->getPassword());
-                    $this->loginView->setMessage(\view\LoginView::WELCOME_MESSAGE);
-                } else {
-                    $this->loginView->setMessage($this->model->message);
+                //If we didn't want to show that other page, show loginView (as logged in)
+                return $loggedInController->run();
+            } else { //This is what we want to show if we are not logged in
+                $regController = new RegistrationController();
+                //Do we want to show registration controller?
+                if ($regController->shouldRun()) {
+                    return $regController->run();
                 }
             }
-            if ($isLoggedIn && $this->doesTheUserWantToLogout()) {
-                $this->sessionView->killSession();
-                $this->cookieView->killCookies();
-                $isLoggedIn = false;
-                $this->loginView->setMessage(\view\LoginView::GOODBYE_MESSAGE);
-            }
 
-            $regController = new RegistrationController();
-            if ($regController->shouldRun()) {
-                if ($regController->run()) {
-                    return;
-                } else {
-                    $this->loginView->setMessage($regController->getMessage());
-                    $this->loginView->setName($regController->getUsername());
-                }
-            }
-            $dtv = new \view\DateTimeView();
-            //TODO: Instead of putting isLoggedIn to loginview, we should use different views
-            $this->loginView->setIsLoggedin($isLoggedIn);
-            $this->view->render($isLoggedIn, $this->loginView, $dtv); //controller
+            //Showing loginView as logged out (wanting to log in)
+            return new LoginView();
         }
     }
 
-    /**
-     * Checks if the user is logged in with session or cookies.
-     *
-     * @return boolean
-     */
-    function isLoggedIn()
-    {
-        //Checking login with session
-        $sessionCred = $this->sessionView->tryGetLoginCredentials();
-        $cookieCred = $this->cookieView->tryGetLoginCredentials();
 
-        if ($sessionCred != false) {
-            if ($this->loginView->getUserClient()->isSame($sessionCred->getClient()) &&
-                $this->model->TryLoginUserCred($sessionCred)
-            ) {
-
-                //Should fail if changed cookies
-                if ($cookieCred != false)
-                    if ($this->tryLoginWithCookies($cookieCred))
-                        $this->loginView->setMessage("");
-                    else
-                        return false;
-
-                return true;
-            }
-        }
-
-        if ($cookieCred != false)
-            return $this->tryLoginWithCookies($cookieCred);
-
-        return false;
-    }
-
-    /**
-     * Tries to log in with cookies and returns true if successful, false otherwise
-     * @param $cookieCred
-     * @return bool
-     */
-    function tryLoginWithCookies($cookieCred)
-    {
-        //Checking login with cookies
-        if ($this->model->TryLogin(
-            $cookieCred[\view\CookieView::$username],
-            $cookieCred[\view\CookieView::$password])
-        ) {
-            $this->loginView->setMessage(\view\LoginView::LOGIN_COOKIE);
-            return true;
-        } else {
-            $this->loginView->setMessage(\view\LoginView::MANIPULATED_COOKIE);
-            return false;
-        }
-    }
-
-    /**
-     * Checks if the user wants to log in via form.
-     *
-     * @return boolean
-     */
-    function doesTheUserWantToLogin()
-    {  //Function that checks if the user wants to log in
-        return $this->loginView->wantsToLogIn();
-    }
-
-    /**
-     * Checks if the user wants to log out
-     * @return bool
-     */
-    function doesTheUserWantToLogout()
-    {
-        return $this->loginView->wantsToLogOut();
-    }
 }

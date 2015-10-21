@@ -4,9 +4,10 @@ namespace controller;
 
 use model\RegistrationModel;
 use model\UsersDAL;
+use view\LoginView;
 use view\RegisterView;
 
-class RegistrationController
+class RegistrationController implements ControllerInterface
 {
     const REGISTER_SUCCESS_MESSAGE = "Registered new user.";
 
@@ -19,7 +20,12 @@ class RegistrationController
         $this->view = new RegisterView();
     }
 
-    function shouldRun(){
+    /**
+     * Is the user trying to register or visiting register page?
+     * @return bool
+     */
+    function shouldRun()
+    {
         return $this->view->tryingToRegister() || $this->view->wantsToRegister();
     }
 
@@ -33,28 +39,40 @@ class RegistrationController
             $validation = $this->model->validate($user = $this->view->getRegistrationCredentials());
             if ($validation !== true) {
                 $this->view->setMessage($validation);
-                $this->view->showFormHTML();
-                return true;
+                return $this->view;
             } else { //Valid user input
                 $this->usersDAL->saveUser($user);
-                return false;
+                $loginView = new LoginView();
+                $loginView->setMessage($this->getMessage());
+                $loginView->setName($this->getUsername());
+                return $loginView;
             }
         }
 
         //Show form
         if ($this->view->wantsToRegister()) {
-            $this->view->showFormHTML();
-            return true;
+            return $this->view;
         }
 
-        return false;
+        return new LoginView();
     }
 
-    function getUsername(){
+    /**
+     * Gets the username from the view
+     * @return string
+     */
+    function getUsername()
+    {
         return $this->view->getUsername();
     }
 
-    function getMessage(){
+
+    /**
+     * Gets the message to show on the page
+     * @return string
+     */
+    private function getMessage()
+    {
         return self::REGISTER_SUCCESS_MESSAGE;
     }
 }

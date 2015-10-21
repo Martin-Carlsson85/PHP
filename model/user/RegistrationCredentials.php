@@ -16,16 +16,28 @@ class RegistrationCredentials {
         $this->passwordRepeat = $passwordRepeat;
     }
 
+    /**
+     * Gets the username of the registered user
+     * @return mixed
+     */
     public function getUsername()
     {
         return $this->username;
     }
 
+    /**
+     * Gets the password of the registered user
+     * @return mixed
+     */
     public function getPassword()
     {
         return $this->password;
     }
 
+    /**
+     * Gets the repeated password of the registered user
+     * @return mixed
+     */
     public function getPasswordRepeat()
     {
         return $this->passwordRepeat;

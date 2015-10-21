@@ -24,7 +24,6 @@ class RegistrationModel{
             $returnMessage .= "Passwords do not match. ";
 
         if(preg_match('/[^a-z0-9]/i', $regCred->getUsername())) {
-            //preg_replace('/[^a-z0-9]/i', '', $regCred->getUsername());
             $returnMessage .= "Username contains invalid characters.";
         }
 

@@ -69,12 +69,12 @@ class UsersDAL
     }
 
     /**
-     * Saves a user to the file
+     * Saves a new user to the file
      * @param RegistrationCredentials $userToSave
      */
     function saveUser(RegistrationCredentials $userToSave)
     {
-        $this->users[] = new User($userToSave->getUsername(), $userToSave->getPassword());
+        $this->users[] = new User($userToSave->getUsername(), password_hash($userToSave->getPassword(), PASSWORD_BCRYPT));
         $this->writeFile($this->users);
     }
 

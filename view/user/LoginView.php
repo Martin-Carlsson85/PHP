@@ -10,26 +10,12 @@ class LoginView implements ViewInterface
     const MANIPULATED_COOKIE = "Wrong information in cookies";
 
     private static $login = 'LoginView::Login';
-    private static $logout = 'LoginView::Logout';
     private static $name = 'LoginView::UserName';
     private static $password = 'LoginView::Password';
     private static $keep = 'LoginView::KeepMeLoggedIn';
     private static $messageId = 'LoginView::Message';
 
     private $messageToShow = "";
-    private $isLoggedIn;
-
-
-    /**
-     * Create HTTP response
-     * Should be called after a login attempt has been determined
-     * @param $isLoggedin
-     */
-
-    function __construct($isLoggedin)
-    {
-        $this->isLoggedin = $isLoggedin;
-    }
 
     /**
      * Gets UserCredentials created from values gotten from post
@@ -58,15 +44,6 @@ class LoginView implements ViewInterface
     function wantsToLogIn()
     {
         return isset($_POST[self::$login]);
-    }
-
-    /**
-     * Does the user want to log out?
-     * @return bool
-     */
-    function wantsToLogOut()
-    {
-        return isset($_POST[self::$logout]);
     }
 
     /**
@@ -116,33 +93,17 @@ class LoginView implements ViewInterface
 
     /**
      * Returns what to show from LoginView on page, depending on if user is logged in or not
+     * @return string
      */
     function render()
     {
-        return $this->isLoggedIn ?
-            $this->generateLogoutButtonHTML($this->messageToShow) :
-            $this->generateLoginFormHTML($this->messageToShow);
+        return $this->generateLoginFormHTML($this->messageToShow);
     }
 
     /**
      * Generate HTML code on the output buffer for the logout button
      * @param $message , String output message
-     * @return  void, BUT writes to standard output!
-     */
-    private function generateLogoutButtonHTML($message)
-    {
-        return '
-			<form  method="post" >
-				<p id="' . self::$messageId . '">' . $message . '</p>
-				<input type="submit" name="' . self::$logout . '" value="logout"/>
-			</form>
-		';
-    }
-
-    /**
-     * Generate HTML code on the output buffer for the logout button
-     * @param $message , String output message
-     * @return  void, BUT writes to standard output!
+     * @return string
      */
     private function generateLoginFormHTML($message)
     {
@@ -166,13 +127,5 @@ class LoginView implements ViewInterface
 				</fieldset>
 			</form>
 		';
-    }
-
-    /**
-     * @param boolean $isLoggedin
-     */
-    public function setIsLoggedin($isLoggedin)
-    {
-        $this->isLoggedin = $isLoggedin;
     }
 }
