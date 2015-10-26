@@ -73,12 +73,12 @@ class LoggedInView implements ViewInterface
     {
         $toReturn = "";
         foreach ($this->filesDAL->getFilesForUser(SessionView::tryGetLoginCredentials()->getName()) as $file) {
-            $description = mb_strlen(trim($file->getDescription())) > 0 ? $file->getDescription() : "Description";
+             mb_strlen(trim($file->getDescription())) > 0 ? $file->getDescription() : "Description";
             $toReturn .= "<div>" .
                 $file->getFileName()
-                . "<a href='?" . FileView::URL_DOWNLOAD . "=" . $file->getDataLocation() . "'>Download</a>"
-                . "<a href='?" . self::$editFile . "=" . $file->getDataLocation() . "'>" . $description . "</a>"
-                . "<a href='?" . self::$deleteFile . "=" . $file->getDataLocation() . "'>Remove file</a>"
+                . " <a href='?" . FileView::URL_DOWNLOAD . "=" . $file->getDataLocation() . "'>Download</a> "
+                . "<a href='?" . self::$editFile . "=" . $file->getDataLocation() . "'>Description</a> "
+                . "<a href='?" . self::$deleteFile . "=" . $file->getDataLocation() . "'>Remove file</a> "
                 . "</div>";
         }
         return $toReturn;
@@ -93,12 +93,12 @@ class LoggedInView implements ViewInterface
         return '
 			<form  method="post" >
 				<p>' . $this->message . '</p>
-				<input type="submit" name="' . self::$logout . '" value="logout"/>
+				<input id="logout" type="submit" name="' . self::$logout . '" value="Logout"/>
 			</form>
 			<form action="./" method="post" enctype="multipart/form-data">
-			    <input type="file" id="' . self::$upload . '" name="' . self::$upload . '"  />
-			    <input type="text" name="' . self::$description . '" placeholder="Description" />
-			    <input type="submit" value="Upload" />
+			    <input class="brows" type="file" id="' . self::$upload . '" name="' . self::$upload . '"  />
+			    <input class="description" type="text" name="' . self::$description . '" placeholder="Description" />
+			    <input class="upload" type="submit" value="Upload" />
 			</form>
 			<div>
 			    ' . $this->renderFileList() . '

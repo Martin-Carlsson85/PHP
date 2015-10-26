@@ -15,11 +15,12 @@ class LayoutView {
       <html>
         <head>
           <meta charset="utf-8">
-          <title>I want to download a file</title>
+          <title>Download a file</title>
+           <link rel="stylesheet" type="text/css" href="Css/style.css">
         </head>
         <body>
           <h1>FileDownloader</h1>
-          <div class="container">
+          <div id="container">
               ' . $viewInterface->render() . '
 
               ' . $dtv->show() . '

@@ -18,6 +18,6 @@ class DateTimeView {
 		$time = date("H:i:s");
 		$timeString = "$day, the $dayOfMonth$dateSuffix of $month $year, The time is $time";
 
-		return '<p>' . $timeString . '</p>';
+		return '<h5>' . $timeString . '</h5>';
 	}
 }

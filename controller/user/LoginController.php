@@ -8,10 +8,10 @@ use view\SessionView;
 
 class LoginController implements ControllerInterface
 {
-    function __construct()
+    function __construct(loginview $LoginView)
     {
         $this->model = new \model\LoginModel();
-        $this->loginView = new LoginView();
+        $this->loginView = $LoginView;
     }
 
     /**
@@ -89,7 +89,6 @@ class LoginController implements ControllerInterface
                 SessionView::saveLoginSession($this->loginView->getUserCredentials());
                 if ($this->loginView->keepLoggedIn())
                     CookieView::saveLoginCookie($this->loginView->getName(), $this->loginView->getPassword());
-                $this->loginView->setMessage(\view\LoginView::WELCOME_MESSAGE);
             } else {
                 $this->loginView->setMessage($this->model->message);
             }

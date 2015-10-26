@@ -85,19 +85,19 @@ class RegisterView implements ViewInterface
      */
     function render()
     {
-        return '<form method="post" action="./" >
+        return '<form id="formLogin" method="post" action="./" >
 				<fieldset>
 					<legend>Register - enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $this->messageToShow . '</p>
 
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . strip_tags($this->getUsername()) . '" />
+					<input class="username2" type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . strip_tags($this->getUsername()) . '" /><br/>
 
 					<label for="' . self::$password . '">Password :</label>
-					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
+					<input class="password2" type="password" id="' . self::$password . '" name="' . self::$password . '" /><br/>
 
 					<label for="' . self::$passwordRepeat . '">Password :</label>
-					<input type="password" id="' . self::$passwordRepeat . '" name="' . self::$passwordRepeat . '" />
+					<input class="password3" type="password" id="' . self::$passwordRepeat . '" name="' . self::$passwordRepeat . '" /><br/>
 
 					<input type="submit" name="' . self::$register . '" value="register" />
 					<a href="./">Back to login</a>

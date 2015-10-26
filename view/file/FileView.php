@@ -6,7 +6,7 @@ namespace view;
 class FileView implements ViewInterface
 {
     const URL_DOWNLOAD = "download";
-    const WARNING_FILE_NO_EXIST = "The file you are looking for does not exist.";
+    const WARNING_FILE_NO_EXIST = "The file you are looking for does not exist!";
 
     function __construct(\model\FilesDAL $filesDAL)
     {
@@ -49,7 +49,7 @@ class FileView implements ViewInterface
     {
         //If there is a file to show (exists)
         if ($this->file) {
-            //Are we trying to donload it?
+            //Are we trying to download it?
             if ($this->wantsToDownload()) {
                 header('Content-Disposition: attachment; filename="' . $this->file->getFileName() . '"');
                 header('Content-Type: ' . $this->file->getContentType());
@@ -58,13 +58,14 @@ class FileView implements ViewInterface
             } else { //Show download page
                 $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                 return "<form method='post'>
+                            <p class='link'>Copy the link and send it to your friend!</p>
                             " . $actual_link . "
                             <h3>" . $this->file->getDescription() . "</h3>
-                            <p>" . $this->file->getFileName() . " uploaded by " . $this->file->getOwner() . "</p>
+                            <h5>" . $this->file->getFileName() . " uploaded by " . $this->file->getOwner() . "</h5>
                             <input type='submit' value='Download' />
                             <input type='hidden' name='" . self::URL_DOWNLOAD . "' value='" . $this->getDownloadLink() . "' />
                         </form>
-                        <a href='./'>Back to start</a>";
+                     <a href='./'>Back to start</a>";
             }
         } else { //File does not exist
             return "<p>" . self::WARNING_FILE_NO_EXIST . "</p>

@@ -36,7 +36,7 @@ class EditFileView implements ViewInterface
                         File description:
                         <input type='text' maxlength='50' name='" . self::$updateFile . "' placeholder='Description' value='" . $this->file->getDescription() . "' />
                     </label>
-                    <p>" . $this->file->getFileName() . "</p>
+                    <h5>" . $this->file->getFileName() . "</h5>
                     <input type='submit' value='Update information' />
                     <a href='./'><input type='button' value='Cancel' /></a>
                 </form>";

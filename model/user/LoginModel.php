@@ -16,7 +16,9 @@ class LoginModel
 
     /**
      * Implementation of login with only username and password, if successful, return true, else return false.
-     * @return boolean
+     * @param $username
+     * @param $password
+     * @return bool
      */
     function TryLogin($username, $password)
     {

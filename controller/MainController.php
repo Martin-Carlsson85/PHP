@@ -6,12 +6,13 @@ use view\LoginView;
 
 class MainController
 {
-    private $fileContoller, $loginController, $loginView;
+    private $fileController, $loginController, $loginView;
 
     function __construct()
     {
+        $this->loginView = new LoginView();
         $this->loginController = new LoginController($this->loginView);
-        $this->fileContoller = new FileController();
+        $this->fileController = new FileController();
     }
 
     /**
@@ -20,8 +21,8 @@ class MainController
     function run()
     {
         //Should fileController render as page?
-        if ($this->fileContoller->shouldRender()) {
-            return $this->fileContoller->run();
+        if ($this->fileController->shouldRender()) {
+            return $this->fileController->run();
         } else {
             //Are we logged in?
             if ($this->loginController->run()) {
@@ -29,8 +30,8 @@ class MainController
                 //Example:
                 $loggedInController = new LoggedInController();
                 if ($loggedInController->wantsToEdit()) {
-                    $editFileContoller = new EditFileController($loggedInController->getIdToEdit());
-                    return $editFileContoller->run();
+                    $editFileController = new EditFileController($loggedInController->getIdToEdit());
+                    return $editFileController->run();
                 }
 
                 //If we didn't want to show that other page, show loginView (as logged in)
