@@ -107,12 +107,11 @@ class LoginView implements ViewInterface
      */
     private function generateLoginFormHTML($message)
     {
-        
         return '
 			<form id="formLogin" method="post" >
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
-					<p id="' . self::$messageId . '">' . $message . '</p>
+					<p class="black" id="' . self::$messageId . '">' . $message . '</p>
 
 					<label for="' . self::$name . '">Username :</label>
 					<input class="username" type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . $this->getName() . '" /><br/>

@@ -92,7 +92,7 @@ class LoggedInView implements ViewInterface
     {
         return '
 			<form  method="post" >
-				<p>' . $this->message . '</p>
+				<p class="black">' . $this->message . '</p>
 				<input id="logout" type="submit" name="' . self::$logout . '" value="Logout"/>
 			</form>
 			<form action="./" method="post" enctype="multipart/form-data">

@@ -58,7 +58,7 @@ class FileView implements ViewInterface
             } else { //Show download page
                 $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
                 return "<form method='post'>
-                            <p class='link'>Copy the link and send it to your friend!</p>
+                            <p class='green'>Copy the link and send it to your friend!</p>
                             " . $actual_link . "
                             <h3>" . $this->file->getDescription() . "</h3>
                             <h5>" . $this->file->getFileName() . " uploaded by " . $this->file->getOwner() . "</h5>
@@ -68,7 +68,7 @@ class FileView implements ViewInterface
                      <a href='./'>Back to start</a>";
             }
         } else { //File does not exist
-            return "<p>" . self::WARNING_FILE_NO_EXIST . "</p>
+            return "<p class='red'>" . self::WARNING_FILE_NO_EXIST . "</p>
             <a href='./'>Back to start</a>";
         }
     }

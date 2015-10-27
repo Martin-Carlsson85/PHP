@@ -45,7 +45,7 @@ class MainController
             }
 
             //Showing loginView as logged out (wanting to log in)
-            return new LoginView();
+            return $this->loginView;
         }
     }
 
